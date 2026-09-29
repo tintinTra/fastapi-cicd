@@ -9,6 +9,7 @@ authors = [
 requires-python = ">=3.13"
 dependencies = [
     "fastapi[standard]>=0.141.1",
+    "uvicorn[standar]>=0.54.0",
 ]
 
 [project.scripts]
