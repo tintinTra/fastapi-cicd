@@ -1,2 +1,2 @@
 .env
-src/fastapi_cicd/__pycache__
+src/fastapi_cicd/__pycache__/*
