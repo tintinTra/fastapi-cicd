@@ -6,8 +6,12 @@ Learning project for FastAPI and CI/CD
 
 implementing a FastAPI Server and pushing it trouh a CI/CD pipeline
 
-FastAPI server function: 
+## FastAPI server function: 
 archiving e-books and saving it in a database
+# Routing
+- contains 1 get endpoint for status 
+- contains 2 post endpoints for sending information for one book and for a list of books
+
 
 # Format 
 Forcing formated Code

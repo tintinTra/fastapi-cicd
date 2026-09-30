@@ -1,0 +1,79 @@
+curl -X POST "http://127.0.0.1:8000/books" \
+  -H "Content-Type: application/json" \
+  -d '[
+    {
+      "title": "1984",
+      "isbn": "978-0451524935",
+      "author": "George Orwell"
+    },
+    {
+      "title": "Dune",
+      "isbn": "978-0441172719",
+      "author": "Frank Herbert"
+    },
+    {
+      "title": "Der Herr der Ringe",
+      "isbn": "978-3608939842",
+      "author": "J. R. R. Tolkien"
+    },
+    {
+      "title": "Der Hobbit",
+      "isbn": "978-3608939811",
+      "author": "J. R. R. Tolkien"
+    },
+    {
+      "title": "Der kleine Prinz",
+      "isbn": "978-3257224264",
+      "author": "Antoine de Saint-Exupéry"
+    },
+    {
+      "title": "Fahrenheit 451",
+      "isbn": "978-1451673319",
+      "author": "Ray Bradbury"
+    },
+    {
+      "title": "Brave New World",
+      "isbn": "978-0060850524",
+      "author": "Aldous Huxley"
+    },
+    {
+      "title": "To Kill a Mockingbird",
+      "isbn": "978-0061120084",
+      "author": "Harper Lee"
+    },
+    {
+      "title": "The Great Gatsby",
+      "isbn": "978-0743273565",
+      "author": "F. Scott Fitzgerald"
+    },
+    {
+      "title": "Moby-Dick",
+      "isbn": "978-1503280786",
+      "author": "Herman Melville"
+    },
+    {
+      "title": "Frankenstein",
+      "isbn": "978-0486282114",
+      "author": "Mary Shelley"
+    },
+    {
+      "title": "Dracula",
+      "isbn": "978-0486411095",
+      "author": "Bram Stoker"
+    },
+    {
+      "title": "The Catcher in the Rye",
+      "isbn": "978-0316769488",
+      "author": "J. D. Salinger"
+    },
+    {
+      "title": "The Alchemist",
+      "isbn": "978-0061122415",
+      "author": "Paulo Coelho"
+    },
+    {
+      "title": "Animal Farm",
+      "isbn": "978-0451526342",
+      "author": "George Orwell"
+    }
+  ]'
