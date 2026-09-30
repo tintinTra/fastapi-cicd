@@ -1,7 +1,17 @@
-# FastAPI CI/CD
+## FastAPI CI/CD
 
-Lernprojekt für einen Python-Webserver mit FastAPI, uv und CI/CD.
+Learning project for FastAPI and CI/CD 
 
-## Status
+## Goal 
 
-Das Git-Repository ist vorbereitet. Die FastAPI-Anwendung und die CI/CD-Konfiguration folgen.
+implementing a FastAPI Server and pushing it trouh a CI/CD pipeline
+
+# Format 
+Forcing formated Code
+
+# Linting
+Optimizing Code by getting rid of unused variable or funktions etc.
+
+# Docker
+Pushing it into a docker image
+
