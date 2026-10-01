@@ -19,6 +19,10 @@ The configuration is defined in `pyproject.toml`. Ruff formats code
 consistently and checks for issues such as unused imports, undefined
 names, and unsorted imports.
 
+# Format
+- all braces need to be double braces
+- tabs need to be 4 spaces
+- line endings are automatic depending on the os in linux lf and on windows ctrl-lf
 
 
 Install dependencies from the lockfile:

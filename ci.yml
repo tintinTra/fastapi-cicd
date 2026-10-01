@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@v4
+
+      - name: uv installieren
+        uses: astral-sh/setup-uv@v5
+
+      - name: Dependencies installieren
+        run: uv sync
+
+      - name: Ruff Lint
+        run: uv run ruff check .
+
+      - name: Ruff Format prüfen
+        run: uv run ruff format --check .
