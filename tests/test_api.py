@@ -21,6 +21,10 @@ def book():
     }
 
 
+def book_object(book):
+    return fastapi_cicd.Book.model_validate(book)
+
+
 def test_status(client):
     response = client.get("/status")
 
@@ -33,7 +37,7 @@ def test_create_book(client, book):
 
     assert response.status_code == 200
     assert response.json() == book
-    assert fastapi_cicd.db[book["isbn"]] == book
+    assert fastapi_cicd.db[book["isbn"]] == book_object(book)
 
 
 def test_create_books(client, book):

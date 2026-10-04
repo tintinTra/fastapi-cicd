@@ -1,6 +1,6 @@
 import uvicorn
 from fastapi import FastAPI
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 app = FastAPI()
 
@@ -13,7 +13,7 @@ def main():
 class Book(BaseModel):
     title: str
     isbn: str
-    author: str
+    author: str = Field(min_length=5)
 
 
 db: dict[str, Book] = {}
@@ -22,6 +22,11 @@ db: dict[str, Book] = {}
 @app.get("/status", description="get server status", tags=["status"])
 def status():
     return {"status": 200}
+
+
+@app.get("/book")
+def get_book():
+    pass
 
 
 @app.get("/books", tags=["Books"])
