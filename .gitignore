@@ -1,3 +1,5 @@
 .env
 .ruff_cache/
 src/fastapi_cicd/__pycache__/*
+.pytest_cache/
+tests/__pycache__/

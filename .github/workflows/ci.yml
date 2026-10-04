@@ -16,10 +16,13 @@ jobs:
         uses: astral-sh/setup-uv@v5
 
       - name: Dependencies installieren
-        run: uv sync
+        run: uv sync --locked
 
       - name: Ruff Lint
         run: uv run ruff check .
 
       - name: Ruff Format prüfen
         run: uv run ruff format --check .
+
+      - name: API-Tests ausführen
+        run: uv run pytest -v

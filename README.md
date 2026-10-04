@@ -51,5 +51,28 @@ uv run ruff format --check .
 These checks do not modify files. If they detect violations, they return
 a nonzero exit code, causing the CI step to fail.
 
+## API tests and CI
+
+Install dependencies and run the tests locally:
+
+```bash
+uv sync --locked
+uv run pytest -v
+```
+
+The tests in `tests/test_api.py` use FastAPI's `TestClient`, so no running
+Uvicorn server is needed. They check the status endpoint, creating one or
+multiple books, and rejecting invalid requests with HTTP 422 without
+saving any books. A pytest fixture gives each test a fresh in-memory
+dictionary so tests cannot affect each other.
+
+The application currently stores data only in memory; these tests do not
+exercise a persistent database.
+
+GitHub Actions reads `.github/workflows/ci.yml`. On every push and pull
+request, the workflow installs the locked dependencies, checks Ruff lint
+and formatting, and runs `uv run pytest -v`. A failed assertion causes
+pytest to exit with an error and the CI job to fail.
+
 # Docker
 Pushing it into a docker image
