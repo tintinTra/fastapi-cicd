@@ -48,9 +48,7 @@ def test_create_books(client, book):
 
     assert response.status_code == 200
     assert response.json() == books
-    assert set(fastapi_cicd.db) == {
-        item["isbn"] for item in books
-    }
+    assert set(fastapi_cicd.db) == {item["isbn"] for item in books}
     for item in books:
         stored = fastapi_cicd.db[item["isbn"]]
         assert stored.model_dump() == item

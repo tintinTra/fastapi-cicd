@@ -1,9 +1,13 @@
+import uvicorn
 from fastapi import FastAPI
 from pydantic import BaseModel
 
 app = FastAPI()
 
-db = {}
+
+def main():
+
+    uvicorn.run("fastapi_cicd:app", host="127.0.0.1", port=8000, reload=True)
 
 
 class Book(BaseModel):
@@ -12,23 +16,32 @@ class Book(BaseModel):
     author: str
 
 
-@app.get("/status")
+db: dict[str, Book] = {}
+
+
+@app.get("/status", description="get server status", tags=["status"])
 def status():
     return {"status": 200}
 
 
-@app.post("/book")
-def book(book: Book):
-
-    db[book.isbn] = book.model_dump()
-    return {
-        "title": book.title,
-        "isbn": book.isbn,
-        "author": book.author,
-    }
+@app.get("/books", tags=["Books"])
+def get_books():
+    return [book.model_dump() for book in db.values()]
 
 
-@app.post("/books")
+@app.post("/book", tags=["Books"])
+def post_book(book: Book):
+
+    db[book.isbn] = book
+    # return {
+    #     "title": book.title,
+    #     "isbn": book.isbn,
+    #     "author": book.author,
+    # }
+    return book.model_dump()
+
+
+@app.post("/books", tags=["Books"])
 def multiple_books(books: list[Book]):
 
     for book in books:
