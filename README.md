@@ -1,78 +1,39 @@
-## FastAPI CI/CD
+# FastAPI CI/CD
 
-Learning project for FastAPI and CI/CD 
+- Learning project for building a FastAPI REST API and setting up a CI/CD pipeline.
+- Manages book metadata (title, ISBN, author); data is stored in memory and lost on restart.
+- Current automation covers CI checks; a persistent database, Docker image, and automated deployment are planned.
 
-## Goal 
+## Application code — `src/fastapi_cicd/__init__.py`
 
-implementing a FastAPI Server and pushing it trouh a CI/CD pipeline
+- `main()`: starts Uvicorn at `127.0.0.1:8000` with automatic reload during development.
+- `Book`: validates the title, ISBN, and author fields with Pydantic; author names require at least five characters.
+- `db`: stores books in a dictionary keyed by ISBN; saving the same ISBN replaces the existing entry.
+- `status()` — `GET /status`: returns `{"status": 200}` to check that the API responds.
+- `get_books()` — `GET /books`: returns all stored books as JSON.
+- `post_book()` — `POST /book`: validates, stores, and returns a single book.
+- `multiple_books()` — `POST /books`: validates, stores, and returns a list of books.
+- `get_book()` — `GET /book`: placeholder for retrieving a single book; not implemented yet.
 
-## FastAPI server function: 
-archiving e-books and saving it in a database
-# Routing
-- contains 1 get endpoint for status 
-- contains 2 post endpoints for sending information for one book and for a list of books
+## Tests and configuration
+
+- `tests/test_api.py`: tests the status endpoint, saving single and multiple books, and rejecting invalid requests with HTTP 422 without storing data. Each test uses a fresh dictionary and FastAPI's TestClient.
+- `pyproject.toml`: defines dependencies, the start command, and Ruff settings for linting and formatting.
+- `uv.lock`: locks dependency versions for reproducible installations.
+- `.github/workflows/ci.yml`: installs dependencies and runs Ruff lint checks, formatting checks, and pytest on every push and pull request.
+
+## Run locally
+
+- Requirements: Python 3.13 or later and uv.
+- Install dependencies: `uv sync --locked`
+- Start the API: `uv run fastapi-cicd`
+- Open interactive API documentation: http://127.0.0.1:8000/docs
+- Run tests: `uv run pytest -v`
+- Check linting and formatting: `uv run ruff check .` and `uv run ruff format --check .`
+- Fix supported lint issues and format code: `uv run ruff check --fix .` and `uv run ruff format .`
 
 
-## Formatting and linting with Ruff
+## TODo Optional
 
-The configuration is defined in `pyproject.toml`. Ruff formats code
-consistently and checks for issues such as unused imports, undefined
-names, and unsorted imports.
-
-# Format
-- all braces need to be double braces
-- tabs need to be 4 spaces
-- line endings are automatic depending on the os in linux lf and on windows ctrl-lf
-
-
-Install dependencies from the lockfile:
-
-```bash
-uv sync --locked
-```
-
-During development, fix automatically correctable lint issues,
-then format the code:
-
-```bash
-uv run ruff check --fix .
-uv run ruff format .
-```
-
-Any remaining lint issues must be fixed manually.
-
-Before committing and later in CI, run checks without modifying files:
-
-```bash
-uv run ruff check .
-uv run ruff format --check .
-```
-
-These checks do not modify files. If they detect violations, they return
-a nonzero exit code, causing the CI step to fail.
-
-## API tests and CI
-
-Install dependencies and run the tests locally:
-
-```bash
-uv sync --locked
-uv run pytest -v
-```
-
-The tests in `tests/test_api.py` use FastAPI's `TestClient`, so no running
-Uvicorn server is needed. They check the status endpoint, creating one or
-multiple books, and rejecting invalid requests with HTTP 422 without
-saving any books. A pytest fixture gives each test a fresh in-memory
-dictionary so tests cannot affect each other.
-
-The application currently stores data only in memory; these tests do not
-exercise a persistent database.
-
-GitHub Actions reads `.github/workflows/ci.yml`. On every push and pull
-request, the workflow installs the locked dependencies, checks Ruff lint
-and formatting, and runs `uv run pytest -v`. A failed assertion causes
-pytest to exit with an error and the CI job to fail.
-
-# Docker
-Pushing it into a docker image
+- implement a sql database instead of pythond dictionary 
+- instant deployment on a raspberry pi
