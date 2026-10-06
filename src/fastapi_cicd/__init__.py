@@ -1,5 +1,5 @@
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 
 app = FastAPI()
@@ -24,9 +24,24 @@ def status():
     return {"status": 200}
 
 
-@app.get("/book")
-def get_book():
-    pass
+@app.get("/book/{isbn}", tags=["Books"])
+def get_book_by_path(isbn: str):
+    book = db.get(isbn)
+
+    if book is None:
+        raise HTTPException(status_code=404, detail="Book not found")
+
+    return db[isbn]
+
+
+@app.get("/book", tags=["Books"])
+def get_book_by_query(isbn: str):
+    book = db.get(isbn)
+
+    if book is None:
+        raise HTTPException(status_code=404, detail="Book not found")
+
+    return db[isbn]
 
 
 @app.get("/books", tags=["Books"])
